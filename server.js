@@ -27,4 +27,32 @@ server.get('/api/projects/:id', (req, res) => {
         });
 });
 
+server.post('/api/projects', (req, res) => {
+    if(req.body) {
+        projectDB.addProject(req.body)
+            .then(id => {
+                res.status(201).json(id)
+            })
+            .catch(err => {
+                res.status(500).json({ error: 'Server error adding new project' });
+            });
+    } else {
+        res.status(409).json({error: 'Required: "name", Optional: "description", "complete"' });
+    }
+});
+
+server.post('/api/actions', (req, res) => {
+    if(req.body) {
+        projectDB.addAction(req.body)
+            .then(id => {
+                res.status(201).json(id);
+            })
+            .catch(err => {
+                res.status(500).json({ error: 'Server error adding new action'});
+            })
+    } else {
+        res.status(409).json({error: 'Required: "description", "project_id", Optional: "notes", "complete"'})
+    }
+});
+
 module.exports = server;

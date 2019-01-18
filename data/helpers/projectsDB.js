@@ -2,6 +2,8 @@ const db = require('../dbConfig.js');
 
 module.exports = {
     getProjectbyId,
+    addProject,
+    addAction,
 };
 
 
@@ -30,4 +32,14 @@ function getProjectbyId(id) {
             console.log(result);
             return result;
         })
+}
+
+function addProject(project) {
+    return db('projects')
+        .insert(project);
+}
+
+function addAction(action) {
+    return db('actions')
+        .insert(action);
 }
