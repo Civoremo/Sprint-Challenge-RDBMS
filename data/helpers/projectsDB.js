@@ -89,13 +89,48 @@ function deleteProject(id) {
 }
 
 function getActionById(id) {
-    return db('actions')
+    const action = db('actions')
         .where('id', id);
+
+    return Promise.all([action])
+        .then(res => {
+            console.log(res);
+            let [action] = res;
+
+            action.forEach(element => {
+                if(element.complete === 0) {
+                    element.complete = 'false';
+                } else {
+                    element.complete = 'true';
+                }
+            });
+
+            let result = {action};
+            console.log(result);
+            return result;
+        })
 }
 
 function getActions() {
-    return db('actions')
+    const actions = db('actions')
         .select();
+
+    return Promise.all([actions])
+        .then(res => {
+            console.log(res);
+            let [actions] = res;
+
+            actions.forEach(element => {
+                if(element.complete === 0) {
+                    element.complete = 'false';
+                } else {
+                    element.complete = 'true';
+                }
+            });
+
+            let result = {actions};
+            return result;
+        })
 }
 
 function addAction(action) {
