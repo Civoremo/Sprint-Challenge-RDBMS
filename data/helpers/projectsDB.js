@@ -6,7 +6,11 @@ module.exports = {
     addProject,
     updateProject,
     deleteProject,
+    getActionById,
+    getActions,
     addAction,
+    updateAction,
+    deleteAction,
 };
 
 
@@ -59,7 +63,29 @@ function deleteProject(id) {
         .del();
 }
 
+function getActionById(id) {
+    return db('actions')
+        .where('id', id);
+}
+
+function getActions() {
+    return db('actions')
+        .select();
+}
+
 function addAction(action) {
     return db('actions')
         .insert(action);
+}
+
+function updateAction(id, action) {
+    return db('actions')
+        .where('id', id)
+        .update(action);
+}
+
+function deleteAction(id) {
+    return db('actions')
+        .where('id', id)
+        .del();
 }
