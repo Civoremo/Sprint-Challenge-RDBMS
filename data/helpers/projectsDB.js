@@ -20,7 +20,7 @@ function getProjectbyId(id) {
         .first();
 
     const actions = db('actions')
-        .select()
+        .select('id', 'description', 'notes', 'complete')
         .where('project_id', id);
 
     return Promise.all([project, actions])
@@ -43,7 +43,7 @@ function getProjectbyId(id) {
                 }
             });
 
-            let result = { id: project.id, name: project.name, description: project.description, completed:  compProBool, actions: actions };
+            let result = { id: project.id, name: project.name, description: project.description, completed:  compProBool, actions: actions};
             console.log(result);
             return result;
         })
