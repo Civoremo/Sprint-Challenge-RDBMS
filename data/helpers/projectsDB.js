@@ -50,8 +50,25 @@ function getProjectbyId(id) {
 }
 
 function getProjects() {
-    return db('projects')
+    const projects = db('projects')
         .select();
+
+    return Promise.all([projects])
+        .then(res => {
+            console.log(res);
+            let [projects] = res;
+
+            projects.forEach(element => {
+                if(element.complete === 0) {
+                    element.complete = 'false';
+                } else {
+                    element.complete = 'true';
+                }
+            });
+
+            let result = {projects};
+            return result;
+        })
 }
 
 function addProject(project) {
