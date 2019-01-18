@@ -35,6 +35,14 @@ function getProjectbyId(id) {
                 compProBool = 'true';
             }
 
+            actions.forEach(element => {
+                if(element.complete === 0) {
+                    element.complete = 'false';
+                } else {
+                    element.complete = 'true';
+                }
+            });
+
             let result = { id: project.id, name: project.name, description: project.description, completed:  compProBool, actions: actions };
             console.log(result);
             return result;
